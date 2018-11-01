@@ -26,6 +26,36 @@
 					<p v-for="item in movieMsg.pubdates" v-if="item.indexOf('中国')>0">{{ item }}</p>
 				</div>
 			</section>
+			<section class="msg-count">
+				 <div>{{movieMsg.wish_count}}人想看</div>
+        		 <div>{{movieMsg.reviews_count}}人看过</div>
+			</section>
+			<div class="msg-summary">
+        		{{movieMsg.summary}}
+      		</div>
+      		<section class="msg-scoll-hidden">
+      			<section class="msg-star-wrap">
+      				<h3>演职人员</h3>
+      				<div class="msg-scoll">
+      					<div class="msg-star" v-for="item of movieMsg.directors" @click="starMsg(item.id)">
+      						<div v-if="item.avatars.small">
+      							<img :src="item.avatars.small" :alt="item.alt">
+      						</div>
+      						<div class="msg-star-name">
+                				{{item.name}}[导演]
+              				</div>
+      					</div>
+      					<div v-for="item of movieMsg.casts" @click="starMsg(item.id)">
+      						<div v-if="item.avatars.small">
+                				<img :src="item.avatars.small" :alt="item.alt">
+              				</div>
+              				<div class="msg-star-name">
+                				{{item.name}}
+             				</div>
+      					</div>
+      				</div>
+      			</section>
+      		</section>
 		</div>
 	</div>
 </template>
@@ -125,5 +155,27 @@
    .msg-movie-title {
     font-size: 20px;
     color: #343232;
+  }
+   .msg-count {
+    display: flex;
+    justify-content: center;
+    padding: 10px;
+  }
+  .msg-count div {
+    margin-right: 20px;
+    margin-left: 20px;
+    font-size: 14px;
+    line-height: 30px;
+    text-align: center;
+    width: 100px;
+    height: 30px;
+    color: white;
+    border-radius: 5px;
+    background-color: #e54847;
+  }
+  .msg-summary {
+    padding: 10px;
+    font-size: 14px;
+    color: #555;
   }
 </style>
