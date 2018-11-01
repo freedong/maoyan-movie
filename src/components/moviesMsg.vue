@@ -1,0 +1,129 @@
+<template>
+	<div>
+		<spinner v-if='guodu'></spinner>
+		<div v-if='!guodu'>
+			<div class="header-title">
+				<div class="msg-back" @click="backLastPage">
+					<div></div>
+				</div>
+				<div class="msg-title">
+					{{ movieMsg.title }}
+				</div>
+				<div class="msg-back"></div>
+			</div>
+			<section class="msg-movie">
+				<div class="msg-img-wrap">
+					<img :src="movieMsg.images.medium" :alt="movieMsg.alt">
+				</div>
+				<div class="">
+					<h3 class="msg-movie-title">{{movieMsg.title}}</h3>
+					<star :score="movieMsg.rating.average"></star>
+					<p class="msg-movie-count">{{movieMsg.rating.average}}({{movieMsg.collect_count}}人评分)</p>
+					<p>{{movieMsg.year}}年</p>
+					<p>{{movieMsg.genres.join(', ')}}</p>
+					<p v-for="item in movieMsg.countries">{{ item }}</p>
+					<p v-for="item in movieMsg.durations" v-if="item.indexOf('中国')>0">{{ item }}</p>
+					<p v-for="item in movieMsg.pubdates" v-if="item.indexOf('中国')>0">{{ item }}</p>
+				</div>
+			</section>
+		</div>
+	</div>
+</template>
+<script>
+	import spinner from "./spinner/spinner"
+	import star from "./star/star"
+	export default {
+		data () {
+			return {
+				guodu:true,
+				movieMsg: {}
+			}
+		},
+		components: {
+			spinner,
+			star
+		},
+		mounted: function () {
+			this.$nextTick(function () {
+				const _this = this
+				const id = 'https://api.douban.com/v2/movie/subject/' + this.$route.params.id + '?apikey=0b2bdeda43b5688921839c8ecb20399b&city=%E5%8C%97%E4%BA%AC&client=something&udid=dddddddddddddddddddddd'
+
+				this.$http.jsonp(id).then(function (response) {
+					this.guodu = false
+					// 这个数据是个对象  需要在data中定义赋空值才能用
+					_this.movieMsg = response.body
+					console.log("1"+response.body)
+				}).catch(function (response) {
+					console.log(response)
+				})
+			})
+		},
+		methods: {
+			backLastPage: function () {
+				window.history.go(-1)
+			}
+		}
+	}
+</script>
+<style scoped>
+	.header-title {
+    display: flex;
+    height: 50px;
+    width: 100%;
+    background-color: #e54847;
+    padding: 6px;
+    box-sizing: border-box;
+  }
+  .msg-back {
+    width: 50px;
+    position: relative;
+    cursor: pointer;
+  }
+  .msg-back > div {
+    position: absolute;
+    top: 12px;
+    left: 12px;
+    height: 13px;
+    width: 13px;
+    border: 2px solid #fff;
+    border-width: 0 0 2px 2px;
+    transform: rotate(45deg);
+  }
+  .msg-title {
+    flex: 1;
+    color: #fff;
+    text-align: center;
+    line-height: 2;
+    font-size: 20px;
+    overflow: hidden;
+  }
+  .msg-movie {
+    display: flex;
+    padding: 15px;
+    color: #6b6868;
+    background-color: #b4b1b1;
+  }
+  .msg-movie > div:last-child {
+  	flex: 1;
+  }
+  .msg-movie:last-child {
+    padding-left: 10px;
+  }
+  .msg-movie:last-child p{
+  	margin-top: 3px;
+  	color: #333;
+  	font-size: 12px;
+  }
+  .msg-img-wrap {
+    margin-right: 10px;
+    flex: 1;
+  }
+  .msg-img-wrap img {
+    border: 1px solid white;
+    width: 80%;
+  }
+   .msg-movie-title {
+    font-size: 20px;
+    color: #343232;
+  }
+</style>
