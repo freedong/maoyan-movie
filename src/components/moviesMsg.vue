@@ -56,6 +56,23 @@
       				</div>
       			</section>
       		</section>
+
+      <section class="msg-duanping">
+        <h3>热门短评</h3>
+        <div v-for="item in movieMsg.popular_comments">
+          <div class="msg-rating">
+            <star :score="item.rating.value*2"></star>
+            <span>{{item.created_at}}</span>
+          </div>
+          <p class="author-content">{{item.content}}</p>
+          <div class="author-img">
+            <img :src="item.author.avatar" :alt="item.author.alt">
+            <span>{{item.author.name}}</span>
+          </div>
+        </div>
+         <p @click="smallComment(movieMsg.id)" class="msg-all-Comment">查看全部短论</p>
+        <p @click="comment(movieMsg.id)" class="msg-all-Comment">查看全部影评</p>
+      </section>
 		</div>
 	</div>
 </template>
@@ -91,7 +108,19 @@
 		methods: {
 			backLastPage: function () {
 				window.history.go(-1)
-			}
+			},
+      smallComment: function (str) {
+        const path = '/smallComment/' + str
+        this.$router.push({path:path})
+      },
+      comment: function (str) {
+        const path = '/comment/' + str
+        this.$router.push({path:path})
+      },
+      starMsg: function (str) {
+        const path = '/starMsg/' + str
+        this.$router.push({path:path})
+      }
 		}
 	}
 </script>
@@ -177,5 +206,86 @@
     padding: 10px;
     font-size: 14px;
     color: #555;
+  }
+  .msg-scoll-hidden {
+    overflow: hidden;
+    height: 165px;
+    margin: 0 auto;
+    overflow: hidden;
+  }
+  .msg-star-wrap h3,
+  .msg-duanping h3 {
+    color: #666;
+    font-size: 15px;
+    font-weight: 700;
+    margin-bottom: 5px;
+  }
+  .msg-scoll {
+    white-space: nowrap;
+    overflow-x: scroll;
+    margin-top: 10px;
+  }
+  .msg-scoll-hidden {
+    overflow: hidden;
+    height: 165px;
+    margin: 0 auto;
+    overflow: hidden;
+  }
+  .msg-scoll > div {
+    display: inline-block;
+    margin-right: 5px;
+  }
+  .msg-star-name {
+    width: 70px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow:ellipsis;
+  }
+
+  .msg-duanping {
+    padding: 10px;
+    box-sizing: border-box;
+  }
+   .msg-star-wrap h3,
+  .msg-duanping h3 {
+    color: #666;
+    font-size: 15px;
+    font-weight: 700;
+    margin-bottom: 5px;
+  }
+  .author-content {
+    color: #333;
+    margin-bottom: 10px;
+    margin-top: 10px;
+  }
+  .author-img {
+    margin-bottom: 10px;
+    border-bottom: 1px solid #d6d3d3;
+  }
+  .author-img:last-child {
+    margin-bottom: 0;
+  }
+  .author-img img {
+    border-radius: 50%;
+  }
+  .author-img span {
+    vertical-align: 80%;
+    margin-left: 5px;
+    color: #999;
+  }
+  .msg-all-Comment {
+    color: #e54847;
+    font-weight: lighter;
+    text-align: center;
+    font-size: 15px;
+    height: 30px;
+    line-height: 30px;
+    border-bottom: 1px solid #d6d3d3;
+  }
+  .msg-rating {
+    display: flex;
+  }
+  .msg-rating:last-child {
+    flex: 1;
   }
 </style>

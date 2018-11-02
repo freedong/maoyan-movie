@@ -63,7 +63,7 @@
     },
     methods: {
       showMoreMsg: function(str){
-        const path = "/movie/" + str
+        const path = "/moviesMsg/" + str
         this.$router.push({path:path})
       }
     }
