@@ -38,17 +38,17 @@
       				<h3>演职人员</h3>
       				<div class="msg-scoll">
       					<div class="msg-star" v-for="item of movieMsg.directors" @click="starMsg(item.id)">
-      						<div v-if="item.avatars.small">
+      						<!-- <div v-if="item.avatars.small">
       							<img :src="item.avatars.small" :alt="item.alt">
-      						</div>
+      						</div> -->
       						<div class="msg-star-name">
                 				{{item.name}}[导演]
               				</div>
       					</div>
       					<div v-for="item of movieMsg.casts" @click="starMsg(item.id)">
-      						<div v-if="item.avatars.small">
+      						<!-- <div v-if="item.avatars.small">
                 				<img :src="item.avatars.small" :alt="item.alt">
-              				</div>
+              				</div> -->
               				<div class="msg-star-name">
                 				{{item.name}}
              				</div>
