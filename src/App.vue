@@ -9,9 +9,10 @@ export default {
   data() {
     return {}
   },
-  created: function () {
-    this.$router.push({path: '/inTheaters'})
-  }
+  // 去掉这一行代码  刷新页面就不会回到首页
+  // created: function () {
+  //   this.$router.push({path: '/inTheaters'})
+  // }
 }
 </script>
 

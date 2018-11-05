@@ -93,4 +93,7 @@
     	font-size: 20px;
     	color: #F9FAFC;
   	}
+  	.router-link-active {
+  		color: blue;
+  	}
 </style>
